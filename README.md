@@ -30,7 +30,8 @@ AI coding assistants (Claude Code, GPT5 Codex, OpenCode, Vibe) currently operate
 | Research tracker | ✅ Done | `research/TRACKER.md` |
 | Research findings | ✅ Done | `research/*/` |
 | Architecture design | ✅ Done | `research/architecture/` |
-| Feasibility tests | ✅ Passed | F1, F3, F5, F6 |
+| Feasibility tests | ✅ Done | F1, F3, F5, F6, F7 passed; F8 negative; F9 viable |
+| P2P communication | 🔬 PoC needed | F9 long-polling pattern needs validation |
 | Functional code | ❌ None | - |
 | Prototype | ❌ None | - |
 
@@ -39,10 +40,11 @@ AI coding assistants (Claude Code, GPT5 Codex, OpenCode, Vibe) currently operate
 | Want to... | Go here |
 |------------|---------|
 | 📰 **Follow the journey** | [`research/journal/`](research/journal/) - Narrative history of discoveries, decisions, dead ends |
-| 💡 **Review feature ideas** | [`research/features/`](research/features/) - Proposed capabilities, open for discussion |
+| 💡 **Review feature ideas** | [`research/features/`](research/features/) - Proposed capabilities (F1 Newsreel, F2 P2P, F9 Long-polling) |
 | 🏗️ **Understand the architecture** | [`research/architecture/`](research/architecture/) - System design, topology, feature specs |
 | 🔍 **See platform research** | [`research/codex/`](research/codex/) / [`research/opencode/`](research/opencode/) - CLI capabilities analysis |
-| 🗺️ **Survey the landscape** | [`research/landscape/`](research/landscape/) - Protocols, patterns, synthesis |
+| 🗺️ **Survey the landscape** | [`research/landscape/`](research/landscape/) - Protocols, patterns, P2P communication (L5) |
+| 🧪 **Feasibility tests** | [`research/feasibility/`](research/feasibility/) - F8 notification tests (negative result) |
 | 📋 **Track progress** | [`research/TRACKER.md`](research/TRACKER.md) - Master research tracker with all links |
 
 ### What's Documented
@@ -64,7 +66,9 @@ These exist because this project will largely be built *by* AI agents, and they 
 - [x] Can CLI agents communicate bidirectionally? **YES** - Structured JSON responses work (F3)
 - [x] What sandbox restrictions does Codex CLI impose? **Network blocked by default** - See [P1](research/codex/P1_sandbox_restrictions.md)
 - [x] Is OpenCode a viable alternative harness for GPT-5? **YES** - 75+ providers, HTTP API, no sandbox (F1, F5, F6)
-- [ ] Do existing tools already solve this? (GitHub survey pending)
+- [x] Do existing tools already solve this? **NO** - Niche validated, 25+ projects surveyed (L1)
+- [x] Can CLI agents receive push notifications? **NO** - See [F8](research/feasibility/F8_notification_feasibility.md)
+- [x] Is there an alternative to push/poll? **YES** - Long-polling keep-alive pattern viable - See [F9](research/features/F9_long_polling_keepalive.md)
 
 ### Architecture - DECIDED ✅
 - [x] MCP server? Separate service? Plugin system? **MCP middleware server** - See [A1](research/architecture/A1_mcp_middleware.md)
@@ -109,11 +113,12 @@ x_agent_code/
 ├── .gitignore               # Python/Rust/JS patterns
 ├── research/                # Research findings (public-facing)
 │   ├── TRACKER.md           # Master research tracker
-│   ├── HARNESS.md           # Operational documentation
+│   ├── HARNESS.md           # Operational documentation + known issues
 │   ├── journal/             # 📰 Narrative research history
-│   ├── features/            # 💡 Feature ideas & proposals
+│   ├── features/            # 💡 Feature ideas (F1, F2, F9)
+│   ├── feasibility/         # 🧪 Feasibility tests (F8)
 │   ├── architecture/        # 🏗️ System design documents
-│   ├── landscape/           # 🗺️ Protocols, patterns, synthesis
+│   ├── landscape/           # 🗺️ Protocols, patterns, P2P (L5)
 │   ├── codex/               # Codex CLI research (abandoned)
 │   └── opencode/            # OpenCode research (selected)
 └── claudedocs/
@@ -151,21 +156,30 @@ This project is public from day one. Contributions welcome, but note:
 | 2026-01-07 | **D1: Model A (Invisible Subprocess)** | Simpler UX, results inline, defer visible windows |
 | 2026-01-07 | **D2: Hub-Spoke Architecture** | Claude Code orchestrates, extensible to N agents |
 | 2026-01-07 | **D3: OpenCode over Codex** | Avoids sandbox complexity, 75+ providers |
+| 2026-01-08 | **D4: Push/Poll abandoned** | CLI agents can't receive push; polling requires daemon (F8) |
+| 2026-01-08 | **D5: Long-polling keep-alive** | Child agents wait in open tool calls; MCP SSE + progress notifications (F9) |
 
 ---
 
 ## Next Steps
 
-1. ~~Landscape survey~~ - Partial (GitHub survey pending)
+1. ~~Landscape survey~~ - ✅ Done (L1, L1a, L5)
 2. ~~Codex sandbox audit~~ - ✅ Done → Decided to use OpenCode instead
 3. ~~OpenCode capability review~~ - ✅ Done → HTTP API, multi-model confirmed
 4. ~~Architecture decision~~ - ✅ Done → MCP middleware, hub-spoke
+5. ~~P2P communication feasibility~~ - ✅ Done → Push/poll fail, long-polling viable (F8, F9)
 
-**Current Phase: Implementation**
+**Current Phase: PoC Validation**
+1. **F9 PoC** - Build test MCP server with SSE `register_and_wait()` tool
+2. Validate Claude Code behavior with long-running tool calls
+3. Measure token usage of heartbeat loop
+4. Test user interruptibility during wait
+
+**After PoC: Implementation**
 1. Build middleware MCP server skeleton
 2. Port logging system from TelemetryManager
 3. Implement basic `ask_agent()` tool
-4. Start `opencode serve` as child process
+4. Implement `register_and_wait()` for P2P messaging
 
 ---
 
