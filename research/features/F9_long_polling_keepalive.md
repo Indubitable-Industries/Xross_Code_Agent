@@ -450,12 +450,46 @@ The long-polling keep-alive pattern CAN work based on MCP specification support.
 
 ## Next Actions
 
-1. **Create Phase 1 PoC MCP server** with SSE `register_and_wait()` tool
+1. ~~**Create Phase 1 PoC MCP server**~~ - ✅ DONE: [`poc/f9_long_polling/`](../../poc/f9_long_polling/)
 2. **Test with Claude Code** first (best documented timeout config)
 3. **Measure token usage** of heartbeat loop
 4. **Test user interruptibility** (Ctrl+C, new message)
 5. **If successful**: Proceed to Phase 2 optimization
 6. **If fails**: Document specific failure mode, consider alternatives
+
+---
+
+## PoC Implementation
+
+**Location**: [`poc/f9_long_polling/`](../../poc/f9_long_polling/)
+
+### Quick Start
+
+```bash
+cd poc/f9_long_polling
+uv sync
+uv run server.py
+```
+
+Server runs at `http://localhost:8000/mcp`
+
+### Add to Claude Code
+
+```bash
+claude mcp add --transport http f9-poc http://localhost:8000/mcp
+```
+
+### Tools
+
+| Tool | Purpose |
+|------|---------|
+| `register_and_wait(agent_name, timeout_seconds)` | Wait for work, receive heartbeats |
+| `send_message(content, mode)` | Queue a message for waiting agent |
+| `check_status()` | Server status and pending messages |
+
+### Test Procedure
+
+See [`poc/f9_long_polling/README.md`](../../poc/f9_long_polling/README.md) for full test procedure
 
 ---
 

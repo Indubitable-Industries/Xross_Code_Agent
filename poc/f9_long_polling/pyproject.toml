@@ -1,0 +1,13 @@
+[project]
+name = "f9-long-polling-poc"
+version = "0.1.0"
+description = "F9 PoC: Test long-polling keep-alive pattern for CLI agent communication"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=1.9.0",
+    "uvicorn>=0.30.0",
+    "starlette>=0.38.0",
+]
+
+[tool.uv]
+dev-dependencies = []
