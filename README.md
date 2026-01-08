@@ -2,7 +2,7 @@
 
 **Cross-CLI Agent Middleware** - Enabling AI coding assistants to communicate, share context, and orchestrate each other.
 
-> **Status: RESEARCH PHASE** - This project contains documentation and plans, but no functional code yet.
+> **Status: RESEARCH COMPLETE → IMPLEMENTATION PHASE** - Architecture designed, feasibility proven, ready to build.
 
 ---
 
@@ -28,9 +28,22 @@ AI coding assistants (Claude Code, GPT5 Codex, OpenCode, Vibe) currently operate
 | Agent workflow documentation | ✅ Done | `claudedocs/arch-design/` |
 | Research plan | ✅ Done | `claudedocs/plans/` |
 | Research tracker | ✅ Done | `research/TRACKER.md` |
-| Research findings | ❌ None | `research/*/` |
+| Research findings | ✅ Done | `research/*/` |
+| Architecture design | ✅ Done | `research/architecture/` |
+| Feasibility tests | ✅ Passed | F1, F3, F5, F6 |
 | Functional code | ❌ None | - |
 | Prototype | ❌ None | - |
+
+### Explore the Research
+
+| Want to... | Go here |
+|------------|---------|
+| 📰 **Follow the journey** | [`research/journal/`](research/journal/) - Narrative history of discoveries, decisions, dead ends |
+| 💡 **Review feature ideas** | [`research/features/`](research/features/) - Proposed capabilities, open for discussion |
+| 🏗️ **Understand the architecture** | [`research/architecture/`](research/architecture/) - System design, topology, feature specs |
+| 🔍 **See platform research** | [`research/codex/`](research/codex/) / [`research/opencode/`](research/opencode/) - CLI capabilities analysis |
+| 🗺️ **Survey the landscape** | [`research/landscape/`](research/landscape/) - Protocols, patterns, synthesis |
+| 📋 **Track progress** | [`research/TRACKER.md`](research/TRACKER.md) - Master research tracker with all links |
 
 ### What's Documented
 
@@ -45,24 +58,24 @@ These exist because this project will largely be built *by* AI agents, and they 
 
 ---
 
-## Research Questions (Unanswered)
+## Research Questions
 
-### Feasibility
-- [ ] Can CLI agents communicate bidirectionally at all?
-- [ ] What sandbox restrictions does Codex CLI impose?
-- [ ] Is OpenCode a viable alternative harness for GPT-5?
-- [ ] Do existing tools already solve this? (GitHub survey needed)
+### Feasibility - ANSWERED ✅
+- [x] Can CLI agents communicate bidirectionally? **YES** - Structured JSON responses work (F3)
+- [x] What sandbox restrictions does Codex CLI impose? **Network blocked by default** - See [P1](research/codex/P1_sandbox_restrictions.md)
+- [x] Is OpenCode a viable alternative harness for GPT-5? **YES** - 75+ providers, HTTP API, no sandbox (F1, F5, F6)
+- [ ] Do existing tools already solve this? (GitHub survey pending)
 
-### Architecture
-- [ ] MCP server? Separate service? Plugin system?
-- [ ] What protocol for agent-to-agent messages?
-- [ ] How to share context without overwhelming token limits?
-- [ ] How to handle prompt injection securely?
+### Architecture - DECIDED ✅
+- [x] MCP server? Separate service? Plugin system? **MCP middleware server** - See [A1](research/architecture/A1_mcp_middleware.md)
+- [x] What protocol for agent-to-agent messages? **MCP + HTTP** - See [L2](research/landscape/L2_protocols_and_patterns.md)
+- [x] How to share context without overwhelming token limits? **Compression strategies designed** - See [A3](research/architecture/A3_feature_design.md)
+- [x] How to handle prompt injection securely? **XML delimiter framing** - See [A3](research/architecture/A3_feature_design.md)
 
-### Sub-Agent Control
-- [ ] Can we spawn Codex/OpenCode as subprocess from Claude Code?
-- [ ] Bidirectional? (Claude spawns Codex, Codex spawns Claude)
-- [ ] How to modify runtime configuration and auto-revert?
+### Sub-Agent Control - TESTED ✅
+- [x] Can we spawn Codex/OpenCode as subprocess from Claude Code? **YES** - OpenCode works, Codex abandoned (F1)
+- [x] Bidirectional? **YES via capability proxying** - See [A1](research/architecture/A1_mcp_middleware.md)
+- [ ] How to modify runtime configuration and auto-revert? (Implementation phase)
 
 ---
 
@@ -96,10 +109,13 @@ x_agent_code/
 ├── .gitignore               # Python/Rust/JS patterns
 ├── research/                # Research findings (public-facing)
 │   ├── TRACKER.md           # Master research tracker
-│   ├── landscape/           # Existing tools survey
-│   ├── codex/               # Codex CLI research
-│   ├── opencode/            # OpenCode research
-│   └── architecture/        # Design options
+│   ├── HARNESS.md           # Operational documentation
+│   ├── journal/             # 📰 Narrative research history
+│   ├── features/            # 💡 Feature ideas & proposals
+│   ├── architecture/        # 🏗️ System design documents
+│   ├── landscape/           # 🗺️ Protocols, patterns, synthesis
+│   ├── codex/               # Codex CLI research (abandoned)
+│   └── opencode/            # OpenCode research (selected)
 └── claudedocs/
     ├── arch-design/         # Agent workflow documentation
     │   ├── BaseResearchInstructions.md
@@ -132,15 +148,24 @@ This project is public from day one. Contributions welcome, but note:
 | 2026-01-06 | Project created | Need cross-agent communication tooling |
 | 2026-01-06 | Codex vs OpenCode threshold: 50% | If Codex sandbox adds >50% complexity, pivot to OpenCode |
 | 2026-01-06 | CLI-first design | Plugin/MCP/Skill, not replacement for existing tools |
+| 2026-01-07 | **D1: Model A (Invisible Subprocess)** | Simpler UX, results inline, defer visible windows |
+| 2026-01-07 | **D2: Hub-Spoke Architecture** | Claude Code orchestrates, extensible to N agents |
+| 2026-01-07 | **D3: OpenCode over Codex** | Avoids sandbox complexity, 75+ providers |
 
 ---
 
 ## Next Steps
 
-1. **Landscape survey** - Find existing cross-agent projects on GitHub
-2. **Codex sandbox audit** - Document what's blocked/restricted
-3. **OpenCode capability review** - Assess as alternative GPT-5 harness
-4. **Architecture decision** - MCP vs service vs plugin
+1. ~~Landscape survey~~ - Partial (GitHub survey pending)
+2. ~~Codex sandbox audit~~ - ✅ Done → Decided to use OpenCode instead
+3. ~~OpenCode capability review~~ - ✅ Done → HTTP API, multi-model confirmed
+4. ~~Architecture decision~~ - ✅ Done → MCP middleware, hub-spoke
+
+**Current Phase: Implementation**
+1. Build middleware MCP server skeleton
+2. Port logging system from TelemetryManager
+3. Implement basic `ask_agent()` tool
+4. Start `opencode serve` as child process
 
 ---
 

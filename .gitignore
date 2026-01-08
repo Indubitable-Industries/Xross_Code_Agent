@@ -366,6 +366,7 @@ local.config.*
 *.local.json
 
 # Claude Code / AI Agent artifacts
+.claude/
 .claude_cache/
 .agent_state/
 
