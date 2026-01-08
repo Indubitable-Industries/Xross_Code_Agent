@@ -29,6 +29,7 @@
 | L2 | MCP/A2A protocols & CLI patterns | `COMPLETE` | [L2_protocols_and_patterns.md](landscape/L2_protocols_and_patterns.md) | MCP foundation, A2A patterns |
 | L3 | CLI agent orchestration tools | `NOT_STARTED` | - | Non-UI orchestration |
 | L4 | Local LLM middleware options | `NOT_STARTED` | - | Localhost routing assistants |
+| L5 | P2P agent communication patterns | `COMPLETE` | [L5_p2p_patterns.md](landscape/L5_p2p_patterns.md) | SQLite + MCP notifications, Agent Cards pattern |
 
 ### Phase 2: Platform Capabilities
 
@@ -59,6 +60,8 @@
 | F5 | Multi-model support | `COMPLETE` | PASSED | GPT-5, Grok-4-fast confirmed |
 | F6 | HTTP API per-request model | `COMPLETE` | PASSED | Single serve, multi-model via API |
 | F7 | OpenCode CLI invocation from Claude | `COMPLETE` | [F7_invocation_tests.md](opencode/F7_invocation_tests.md) | `opencode run` works, model selection works |
+| F8 | Push notification feasibility | `COMPLETE` | [F8_notification_feasibility.md](feasibility/F8_notification_feasibility.md) | NEGATIVE - push/poll don't work for CLI agents |
+| F9 | Long-polling keep-alive pattern | `COMPLETE` | [F9_long_polling_keepalive.md](features/F9_long_polling_keepalive.md) | VIABLE - MCP supports SSE + progress notifications, needs PoC |
 
 ---
 
@@ -98,9 +101,13 @@
 - [A2: System Topology](architecture/A2_system_topology.md) - Full architecture diagrams
 - [A3: Feature Design](architecture/A3_feature_design.md) - Modes, pipelines, observability
 
+### Feasibility Tests (`research/feasibility/`)
+- [F8: Notification Feasibility](feasibility/F8_notification_feasibility.md) - Push notification support for Claude Code, Codex, OpenCode
+
 ### Feature Ideas (`research/features/`)
 - [F1: Newsreel Memory](features/F1_newsreel_memory.md) - Grok-4-fast powered activity narrative
 - [F2: Peer Agent Messaging](features/F2_peer_agent_messaging.md) - Live P2P communication between concurrent agent sessions
+- [F9: Long-Polling Keep-Alive](features/F9_long_polling_keepalive.md) - Child agents wait in open tool calls for work
 
 ---
 
@@ -134,6 +141,10 @@
 | 2026-01-08 | L1 Survey | GitHub landscape survey - 25+ projects, niche validated, key projects identified | Deep-dive phase |
 | 2026-01-08 | L1a Deep-Dive | Analyzed claude-code-mcp and oh-my-opencode in detail, documented patterns to adopt | Implementation phase |
 | 2026-01-08 | F7 Testing | Validated `opencode run` CLI invocation with multiple models (GPT-5, Grok) | Ready to build |
+| 2026-01-08 | L5 Research | P2P agent communication patterns - SQLite + MCP notifications architecture | Implementation ready |
+| 2026-01-08 | F8 Feasibility | Push notification tests - NEGATIVE, push/poll don't work for CLI agents | F9 proposed |
+| 2026-01-08 | F9 Proposed | Long-polling keep-alive pattern - child agents wait in open tool calls | Needs research |
+| 2026-01-08 | F9 Research | MCP spec analysis - SSE streaming, progress notifications, timeout config | VIABLE - needs PoC |
 
 ---
 

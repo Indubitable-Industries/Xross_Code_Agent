@@ -342,6 +342,50 @@ Stop and verify if you see:
 
 ---
 
+## Known Issues & Feasibility Gaps
+
+Document architectural issues discovered during research that require feasibility testing before implementation.
+
+### Issue: Agent Heartbeat & Push Notification Feasibility
+
+**Discovered**: L5 (P2P Agent Communication Patterns)
+**Severity**: HIGH - Affects core P2P architecture
+**Feasibility Test**: [F8_notification_feasibility.md](feasibility/F8_notification_feasibility.md)
+
+**Problem Statement**:
+The P2P architecture assumes agents can:
+1. Send periodic heartbeats (every 30s)
+2. Receive push notifications when messages arrive
+
+However, CLI agents are **not daemons**. They only act when:
+- User sends input
+- Agent decides to use a tool
+
+**Affected Agents**:
+| Agent | Session Type | Heartbeat? | Push Notifications? |
+|-------|--------------|------------|---------------------|
+| Claude Code | Interactive | Only when active | MCP supports, but surfacing unclear |
+| OpenCode (`run`) | One-shot | ❌ No | ❌ No |
+| Codex | Interactive | Needs MCP | Needs MCP |
+
+**F8 Findings (NEGATIVE)**:
+- Push notifications don't reach model context (only MCP client state)
+- Polling doesn't work - agents aren't daemons, can't autonomously check
+- Desktop notifications alert USER, not MODEL
+- No reliable interrupt mechanism for CLI agents
+
+**Proposed Solution**: [F9 Long-Polling Keep-Alive](features/F9_long_polling_keepalive.md)
+- Child agents stay in open tool call waiting for work
+- Server holds connection until message arrives or timeout
+- Creates parent-child hierarchy with MCP server as broker
+- Needs research: MCP timeouts, token usage, agent behavior
+
+**Resolution**: F8 COMPLETE (negative result). F9 research required before P2P implementation.
+
+**Contribution Note**: The fundamental limitation is that CLI agents have no context injection mechanism. Potential upstream PR: propose MCP notification surfacing to model context. See F8 "Contribution Opportunities" section.
+
+---
+
 ## Integration
 
 This document is referenced by:
