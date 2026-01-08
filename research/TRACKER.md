@@ -61,7 +61,7 @@
 | F6 | HTTP API per-request model | `COMPLETE` | PASSED | Single serve, multi-model via API |
 | F7 | OpenCode CLI invocation from Claude | `COMPLETE` | [F7_invocation_tests.md](opencode/F7_invocation_tests.md) | `opencode run` works, model selection works |
 | F8 | Push notification feasibility | `COMPLETE` | [F8_notification_feasibility.md](feasibility/F8_notification_feasibility.md) | NEGATIVE - push/poll don't work for CLI agents |
-| F9 | Long-polling keep-alive pattern | `COMPLETE` | [F9_long_polling_keepalive.md](features/F9_long_polling_keepalive.md) | VIABLE - MCP supports SSE + progress notifications, needs PoC |
+| F9 | Long-polling keep-alive pattern | `TESTING` | [F9_long_polling_keepalive.md](features/F9_long_polling_keepalive.md) | Research done, PoC built, [test harness](feasibility/F9_poc_test_harness.md) ready |
 
 ---
 
@@ -103,6 +103,7 @@
 
 ### Feasibility Tests (`research/feasibility/`)
 - [F8: Notification Feasibility](feasibility/F8_notification_feasibility.md) - Push notification support for Claude Code, Codex, OpenCode
+- [F9: PoC Test Harness](feasibility/F9_poc_test_harness.md) - Long-polling validation tests
 
 ### Feature Ideas (`research/features/`)
 - [F1: Newsreel Memory](features/F1_newsreel_memory.md) - Grok-4-fast powered activity narrative
@@ -145,6 +146,8 @@
 | 2026-01-08 | F8 Feasibility | Push notification tests - NEGATIVE, push/poll don't work for CLI agents | F9 proposed |
 | 2026-01-08 | F9 Proposed | Long-polling keep-alive pattern - child agents wait in open tool calls | Needs research |
 | 2026-01-08 | F9 Research | MCP spec analysis - SSE streaming, progress notifications, timeout config | VIABLE - needs PoC |
+| 2026-01-08 | F9 PoC | Built MCP server with register_and_wait, heartbeats, message delivery | Ready to test |
+| 2026-01-08 | F9 Harness | Created formal test harness with 7 test cases | Testing phase |
 
 ---
 

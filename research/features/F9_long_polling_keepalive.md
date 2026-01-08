@@ -489,7 +489,9 @@ claude mcp add --transport http f9-poc http://localhost:8000/mcp
 
 ### Test Procedure
 
-See [`poc/f9_long_polling/README.md`](../../poc/f9_long_polling/README.md) for full test procedure
+See formal test harness: [`feasibility/F9_poc_test_harness.md`](../feasibility/F9_poc_test_harness.md)
+
+Quick reference: [`poc/f9_long_polling/README.md`](../../poc/f9_long_polling/README.md)
 
 ---
 
