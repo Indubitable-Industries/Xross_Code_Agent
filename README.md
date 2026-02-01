@@ -5,6 +5,15 @@
 > **Status: RESEARCH COMPLETE → IMPLEMENTATION PHASE** - Architecture designed, feasibility proven, ready to build.
 
 ---
+This project was designed to be public, along with agentic research updates - from the get-go.
+Live journal, decision making, Claude's "notes" - everything.  
+Structure around agents is absolutely critical to an good outcome.  
+This is an example of what a decent harness help Claude/other agents do without too much handholding.
+Interesting findings on the user side, other harness like structures don't perform as well as these instructions did.
+Somehow, using Git, project being public and perhaps some other minor aspects has really increased it's abilities.
+A paper will be produced after project v1 is completed.  Development will resume again soon (Message: Jan 31 2026)
+
+---
 
 ## Vision
 
