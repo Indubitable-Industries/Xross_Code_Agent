@@ -132,7 +132,7 @@ Before implementation, need to understand:
 
 ---
 
-## Patterns to Steal
+## Useful Patterns (Pattern only, no clone/copy)
 
 | Source | Pattern |
 |--------|---------|
