@@ -5,7 +5,8 @@
 > **Status: RESEARCH COMPLETE → IMPLEMENTATION PHASE** - Architecture designed, feasibility proven, ready to build.
 
 ---
-This project was designed to be public, along with agentic research updates - from the get-go.
+
+This project was designed to be public, along with agentic research updates.
 Live journal, decision making, Claude's "notes" - everything.  
 Structure around agents is absolutely critical to an good outcome.  
 This is an example of what a decent harness help Claude/other agents do without too much handholding.
