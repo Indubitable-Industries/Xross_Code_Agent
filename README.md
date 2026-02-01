@@ -7,12 +7,16 @@
 ---
 
 This project was designed to be public, along with agentic research updates.
+
 Live journal, decision making, Claude's "notes" - everything.  
-Structure around agents is absolutely critical to an good outcome.  
-This is an example of what a decent harness help Claude/other agents do without too much handholding.
-Interesting findings on the user side, other harness like structures don't perform as well as these instructions did.
-Somehow, using Git, project being public and perhaps some other minor aspects has really increased it's abilities.
-A paper will be produced after project v1 is completed.  Development will resume again soon (Message: Jan 31 2026)
+
+- Structure around agents is absolutely critical to an good outcome.  
+- This is an example of what a decent harness help Claude/other agents do without too much handholding.
+- Interesting findings on the user side, other harness like structures don't perform as well as these instructions did.
+- Initial *(user) findings:  Incorporating a public Git repo, and informing it that progress and process are live has really improved it's output.
+
+A paper will be produced after project v1 is completed.  
+Development will resume again soon (Message: Jan 31 2026)
 
 ---
 
