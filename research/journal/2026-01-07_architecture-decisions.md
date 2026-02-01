@@ -187,7 +187,7 @@ User wanted to discuss what the middleware should actually DO beyond basic routi
 
 ### Reference: LLM Context Arena
 
-Looked at `/home/phaze/PycharmProjects/llm-council-rag` for inspiration.
+Looked at `/home/(folders)/llm-council-rag` for inspiration.
 
 Found 6 deliberation modes:
 - **Council**: All answer → Peer review → Synthesize
