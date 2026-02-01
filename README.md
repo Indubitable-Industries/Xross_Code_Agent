@@ -1,4 +1,4 @@
-# x_agent_code
+# Xross_Code_Agent
 
 **Cross-CLI Agent Middleware** - Enabling AI coding assistants to communicate, share context, and orchestrate each other.
 
@@ -10,7 +10,7 @@
 
 AI coding assistants (Claude Code, GPT5 Codex, OpenCode, Vibe) currently operate in isolation. Switching between them loses context, orchestrating them is impossible, and their combined potential goes untapped.
 
-**x_agent_code** aims to be middleware that enables:
+**Xross_Code_Agent** aims to be middleware that enables:
 - **Cross-agent communication** - Models exchanging context and collaborating
 - **Sub-agent instantiation** - Any agent spawning another as a subordinate worker
 - **Runtime configuration** - Temporarily modify prompts/settings, auto-revert after execution
